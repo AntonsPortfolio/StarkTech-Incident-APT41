@@ -64,4 +64,21 @@ index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventI
 
 **Answer:** <ins>hxxp://10.10.5.171:8883/iexploreplugin[.]exe<ins>
 
+---
 
+#### Objective: 
+Identify the files extracted from the malicious ZIP archive.
+
+#### Methodology:
+After confirming the initial access site and first-stage PowerShell payload on DESKTOP, expanded the investigation into file activity to determine how the intrusion progressed. Reviewed ZIP download and extraction events, then correlated them with file creation telemetry in the destination path to identify the files extracted from the archive.
+
+#### Findings:
+The archive python.zip was downloaded and extracted, resulting in two files: testc.exe and python311.dll.
+
+#### Why it matters:
+This shows the intrusion progressed beyond the initial payload and that additional components were introduced to support later stages of the attack.
+
+#### Evidence:
+
+<img width="2048" height="801" alt="image" src="https://github.com/user-attachments/assets/55cbbc05-61aa-4698-b75c-392df116fb22" />
+<img width="2048" height="915" alt="image" src="https://github.com/user-attachments/assets/84413df3-5ba8-4ec8-9961-9e75416ba736" />
