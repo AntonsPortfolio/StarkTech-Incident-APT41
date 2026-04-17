@@ -30,8 +30,7 @@ index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventI
 
 ### Evidence:
 
-<img width="800" height="833" alt="image" src="https://github.com/user-attachments/assets/b7bfe4f5-c41c-4239-9564-faff7e3cead3" />
-<img width="800" height="792" alt="image" src="https://github.com/user-attachments/assets/3c87590d-a7e1-4593-b651-5c327073f581" />
+<img width="800" height="300" alt="image" src="https://github.com/user-attachments/assets/b7bfe4f5-c41c-4239-9564-faff7e3cead3" />
+<img width="800" height="300" alt="image" src="https://github.com/user-attachments/assets/3c87590d-a7e1-4593-b651-5c327073f581" />
 
-### Answer: <ins>paste.sh<ins> 
-was the website that initiated the attack vector 
+**Answer:** (paste.sh) the suspicious website 
