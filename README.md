@@ -1,99 +1,45 @@
-#  💢 StarkTech Incident - APT41 Investigation Lab  
-## Scenario 
-On August 25, 2025, CoreTech’s SOC spotted unusual activity on a workstation, hinting at a breach. Suspicious processes and network activity spread to critical servers, threatening data and systems.
- 
-Welcome to the DoubleDragon lab! Uncover a cunning cyberattack involving phishing, stealthy tools, and data theft. As a threat hunter, use Splunk and forensics tools to analyze logs and forensic artifacts, tracing the attacker’s moves to stop the breach.
-Dive into DoubleDragon and thwart the attack!
+#  💢 StarkTech Incident 
+
+### Scenario
+
+On August 25, 2025, CoreTech’s SOC identified suspicious activity on a workstation that indicated a potential compromise. The intrusion began when the victim accessed a suspicious URL from a file-sharing service, triggering malicious execution.
+
 
 ---
 
-# **Investigation Walkthrough**
 
-##  💢 1. Initial Access 
+## Scope
 
-#### Objective: 
-Identify the website that triggered the compromise.
-#### Methodology: 
-Started by identifying the affected user and workstation to define the investigation scope. With that context established, reviewed Sysmon DNS query activity on DESKTOP for t.leon during the suspected compromise window, then filtered the results to isolate suspicious external domains that aligned with the beginning of attacker activity.
-#### Findings: 
-Reviewing the DNS activity showed a suspicious lookup for paste.sh initiated by msedge.exe. The domain appeared during the same timeframe the compromise began, making it the most likely site that triggered the intrusion.
-#### Why it matters: 
-This establishes the initial access point and provides the first confirmed external indicator tied to the compromise.
-#### Query Used:
-``` 
-index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventID=22 t.leon
-| stats count by QueryName user
-| table user, QueryName, count
-| sort count
-| dedup QueryName
-```
+*The available artifacts showed three systems in scope:*
 
-### Evidence:
-
-<img width="800" height="300" alt="image" src="https://github.com/user-attachments/assets/b7bfe4f5-c41c-4239-9564-faff7e3cead3" />
-<img width="800" height="300" alt="image" src="https://github.com/user-attachments/assets/3c87590d-a7e1-4593-b651-5c327073f581" />
-
-**Answer:** (paste.sh) the suspicious website 
+- DESKTOP — initial workstation under review
+- FILES-Server — file server
+- DC01 — domain controller
 
 ---
 
-##  💢 2. Payload Delivery and Execution
+## Investigation Walkthrough
+### **Identifying the Likely User and Initial Access**
 
-#### Objective: 
-Identify the full URL used to download and execute the next-stage payload.
+-  To establish who initiated the compromise, the first step was to review DNS activity from the workstation around the time of the alert. Filtering Sysmon DNS query events on DESKTOP showed that user t.leon resolved paste.sh at 2025-08-25 13:27:40, making this the first strong lead tied to the intrusion.
 
-#### Methodology:
-After confirming the likely initial access site, pivoted into process creation telemetry to determine what executed immediately afterward. Reviewed PowerShell-related process creation events on DESKTOP around the same timeframe, then examined full command-line arguments to identify any remote download and execution activity linked to the compromise.
+### **Query used:**
 
-#### Findings:
-PowerShell was executed with a hidden window and used Invoke-WebRequest to download iexploreplugin.exe from 10.10.5.171:8883, then executed it from the user’s TEMP directory.
+``
+index="main" host="DESKTOP" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventID=22 coretech
+| table _time user QueryName 
+``
 
-#### Why it matters:
-This confirms the first-stage payload delivery method and identifies the attacker-controlled infrastructure used to place malicious code on the host.
 
-#### Querys Used:
-``` 
-index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventID=1 t.leon powershell 
-| rex "Command: (?<command_line>.*)"
-| table Image, CommandLine, User
-| sort _time 
-```
 
-### Evidence 
-<img width="2048" height="834" alt="image" src="https://github.com/user-attachments/assets/9784336b-a755-4d11-acdd-a784ecd87dd9" />
+### **Discovery** 
+- User t.leon accessed paste.sh at 13:27:40, aligning with the suspected compromise window.
 
-**Answer:** <ins>hxxp://10.10.5.171:8883/iexploreplugin[.]exe<ins>
+### **Evidence**
 
----
+- DNS activity showing paste.sh and associated user "t.leon"
 
-## 💢 3. Files Extracted from Malicious ZIP
+<img width="2048" height="803" alt="image" src="https://github.com/user-attachments/assets/a9b49d21-437e-4c1d-8451-7fb66d89d1a1" />
 
-#### Objective: 
-Identify the files extracted from the malicious ZIP archive.
 
-#### Methodology:
-After confirming the initial access site and first-stage PowerShell payload on DESKTOP, expanded the investigation into file activity to determine how the intrusion progressed. Reviewed ZIP download and extraction events, then correlated them with file creation telemetry in the destination path to identify the files extracted from the archive.
 
-#### Findings:
-The archive python.zip was downloaded and extracted, resulting in two files: testc.exe and python311.dll.
-
-#### Why it matters:
-This shows the intrusion progressed beyond the initial payload and that additional components were introduced to support later stages of the attack.
-
-#### Querys Used: 
-```
-index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventID=11 TargetFilename=*.zip
-|table _time, User, host, Image, TargetFilename
-
-```
-
-```
-index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventID=11 host="FILES-SERVER" "C:\\Users\\admin143\\Downloads"
-| table user, Image, CommandLine, TargetFilename, _time
-
-```
-
-#### Evidence:
-
-<img width="2048" height="801" alt="image" src="https://github.com/user-attachments/assets/55cbbc05-61aa-4698-b75c-392df116fb22" />
-<img width="2048" height="915" alt="image" src="https://github.com/user-attachments/assets/84413df3-5ba8-4ec8-9961-9e75416ba736" />
