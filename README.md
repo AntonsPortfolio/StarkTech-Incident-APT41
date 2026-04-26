@@ -1,5 +1,5 @@
-# StarkTech Investigation Walkthrough  
-## Splunk + Windows Artefact Investigation
+# 🔻 StarkTech Investigation Walkthrough  
+## 🔻 Splunk + Windows Artefact Investigation
 
  > **Purpose:** This walkthrough shows the investigation process, evidence pivots, and analyst reasoning used to trace a multi-stage Windows domain compromise.  
  
@@ -7,7 +7,7 @@
 
 ---
 
-## Table of Contents
+## 🔻 Table of Contents
 
 - [What This Demonstrates](#what-this-demonstrates)
 - [Systems in Scope](#systems-in-scope)
@@ -155,7 +155,14 @@ C:\Users\t.leon\AppData\Local\Microsoft\Edge\User Data\Default\History
 
 ## Screenshot
 
-![Browser history showing paste.sh](./screenshots/03-browser-history.png)
+<table align="center">
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/0399a508-e323-4020-8a3b-bc18ac9d2b44" width="300" height="220"></td>
+    <td><img src="https://github.com/user-attachments/assets/628a3214-25e0-4438-86a4-3f86ba723bde" width="300" height="220"></td>
+    <td><img src="https://github.com/user-attachments/assets/616417d0-9831-42be-ae20-3c81b1f0275d" width="300" height="220"></td>
+  </tr>
+</table>
+
 
 > **Screenshot source:** PDF pages 2–3  
 > **What it should show:** Edge History database, `paste.sh` URL, decoded timestamp.
@@ -228,9 +235,11 @@ index="main" user="t.leon" host="DESKTOP" source="xmlwineventlog:microsoft-windo
 
 ## Screenshots
 
-![Paste.sh PowerShell payload](./screenshots/04-paste-powershell.png)
+<img width="1803" height="785" alt="image" src="https://github.com/user-attachments/assets/04fab0cd-c091-498b-80a5-a6877c121137" />
 
-![iexploreplugin execution in Splunk](./screenshots/05-iexploreplugin-execution.png)
+
+<img width="2048" height="812" alt="image" src="https://github.com/user-attachments/assets/f60f882d-dbc5-4edf-8390-8cbd3f1a75ce" />
+
 
 > **Screenshot source:** PDF pages 4–5  
 > **What they should show:** PowerShell command and Splunk confirmation of `iexploreplugin.exe`.
