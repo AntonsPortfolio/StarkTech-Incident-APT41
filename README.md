@@ -96,9 +96,6 @@ index="main" host="DESKTOP" source="xmlwineventlog:microsoft-windows-sysmon/oper
 <img width="1500" height="600" alt="image" src="https://github.com/user-attachments/assets/f7c0b941-c736-4897-b5e4-5a5fac67e7ce" />
 
 
-> **Screenshot source:** PDF page 2  
-> **What it should show:** `t.leon`, `paste.sh`, timestamp `13:27:40`.
-
 ## What the Evidence Showed
 
 User `t.leon` on `DESKTOP` queried:
@@ -164,8 +161,6 @@ C:\Users\t.leon\AppData\Local\Microsoft\Edge\User Data\Default\History
 </table>
 
 
-> **Screenshot source:** PDF pages 2–3  
-> **What it should show:** Edge History database, `paste.sh` URL, decoded timestamp.
 
 ## What the Evidence Showed
 
@@ -241,9 +236,6 @@ index="main" user="t.leon" host="DESKTOP" source="xmlwineventlog:microsoft-windo
 <img width="2048" height="812" alt="image" src="https://github.com/user-attachments/assets/f60f882d-dbc5-4edf-8390-8cbd3f1a75ce" />
 
 
-> **Screenshot source:** PDF pages 4–5  
-> **What they should show:** PowerShell command and Splunk confirmation of `iexploreplugin.exe`.
-
 ## What the Evidence Showed
 
 The suspicious URL led to a PowerShell command that downloaded and executed `iexploreplugin.exe`.
@@ -309,10 +301,8 @@ index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" "*iexp
 
 ## Screenshot
 
-![Event ID profiling for iexploreplugin](./screenshots/06-eventid-profile-iexploreplugin.png)
+<img width="2048" height="909" alt="image" src="https://github.com/user-attachments/assets/36e47f4d-7b29-41ad-bc1e-9c245f24762d" />
 
-> **Screenshot source:** PDF pages 5–6  
-> **What it should show:** Event IDs triggered by `iexploreplugin.exe`.
 
 ## What the Evidence Showed
 
@@ -335,7 +325,7 @@ The process generated multiple Sysmon event types:
 
 ## How This Shaped My Pivots
 
-| Event ID | Investigation Pivot |
+| Event ID | Investigation Pivots |
 |---:|---|
 | 1 | Review child processes and command execution |
 | 3 | Identify C2/network connections |
