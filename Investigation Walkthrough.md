@@ -1179,11 +1179,9 @@ urlmon.dll
 ## Screenshot
 
 <img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/cf46c0b2-4f59-4daf-8642-e347141c171c" />
-<img width="2048" height="600" alt="image" src="https://github.com/user-attachments/assets/13e95d9e-a2ba-41a5-9c0e-4fa6f57ac4e7" />
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/13e95d9e-a2ba-41a5-9c0e-4fa6f57ac4e7" />
 
 
-> **Screenshot source:** PDF pages 20–21 and 23  
-> **What it should show:** `testc.exe`, `ws2_32.exe`, `system_module.exe`, `python311.dll`.
 
 ## What This Meant
 
@@ -1257,7 +1255,7 @@ index=* (host="FILES-SERVER" OR host="dc01") source="XmlWinEventLog:Microsoft-Wi
 
 ## Screenshot
 
-<img width="2048" height="600" alt="image" src="https://github.com/user-attachments/assets/de24d9f7-8f73-4912-afe5-552ad4f90383" />
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/de24d9f7-8f73-4912-afe5-552ad4f90383" />
 <img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/7ba9b502-2da6-483f-a24b-b62b4032f033" />
 
 
@@ -1285,7 +1283,7 @@ index=* host="FILES-Server" EventCode=3 DestinationIp=10.10.5.245
 
 ## Screenshot
 
-<img width="2048" height="610" alt="image" src="https://github.com/user-attachments/assets/a9b94826-1cb4-45f1-91ff-c6b825128dcb" />
+<img width="1300" height="610" alt="image" src="https://github.com/user-attachments/assets/a9b94826-1cb4-45f1-91ff-c6b825128dcb" />
 
 
 ## Network Evidence
@@ -1347,7 +1345,7 @@ index="main" host="FILES-Server" EventCode=1
 
 ![Data collection via Compress-Archive](./screenshots/21-collection-compress-archive.png)
 
-> **Screenshot needed:** You may need to capture/add this screenshot.  
+
 > **What it should show:** `Compress-Archive`, `Finance.csv`, `HR.csv`, `teams-skartech.zip`.
 
 ## Evidence Observed
@@ -1431,10 +1429,8 @@ remote:starktech-backups
 
 ## Screenshot
 
-![rclone exfiltration](./screenshots/22-rclone-exfiltration.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/711f6fff-9b10-4d75-883e-77c3738dd086" />
 
-> **Screenshot source:** PDF page 25  
-> **What it should show:** rclone extraction and copy to `remote:starktech-backups`.
 
 ## What This Meant
 
@@ -1548,7 +1544,7 @@ Recover-Files.txt
 
 ![DC01 impact preparation](./screenshots/24-dc01-impact-preparation.png)
 
-> **Screenshot needed:** You still need to capture/add this screenshot if not already in your PDF.  
+
 > **What it should show:** `crypto.psm1`, `script.ps1`, `dhsf82.bat`, Winlogon registry modification, `vssadmin`, or `Recover-Files.txt`.
 
 ## What This Meant
