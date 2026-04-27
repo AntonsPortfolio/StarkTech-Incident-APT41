@@ -1614,37 +1614,7 @@ ransom note indicator
 
 ---
 
-# 21. Screenshot Checklist
-
-| Screenshot file | Section | Source page | Must show |
-|---|---|---:|---|
-| `02-dns-paste-sh.png` | Initial Access | Page 2 | `paste.sh`, `t.leon`, `13:27:40` |
-| `03-browser-history.png` | Browser Validation | Pages 2–3 | Edge History / SQLite / timestamp decode |
-| `04-paste-powershell.png` | Execution | Page 4 | PowerShell content from `paste.sh` |
-| `05-iexploreplugin-execution.png` | Execution | Pages 4–5 | `iexploreplugin.exe` execution in Splunk |
-| `06-eventid-profile-iexploreplugin.png` | Event ID Profiling | Pages 5–6 | Event IDs triggered by `iexploreplugin.exe` |
-| `07-initial-c2.png` | Initial C2 | Page 7 | `10.10.5.62:8080` |
-| `08-discovery-commands.png` | Recon | Page 8 | `cmdkey`, `net user`, `whoami`, `tasklist`, etc. |
-| `09-process-injection.png` | Process Injection | Page 9 | `notepad.exe`, `spoolsv.exe` |
-| `10-rmm-persistence.png` | Persistence | Page 12 | Atera, Splashtop, AnyDesk |
-| `11-scheduled-tasks.png` | Scheduled Tasks | Pages 13–14 | `Monitoring Recovery`, `AteraAgentServiceWatchdog` |
-| `12-scvhost-shortcut.png` | Shortcut Persistence | Pages 14–15 | `scvhost.vbs`, `cscript.exe`, `.lnk` evidence |
-| `13-defender-evasion.png` | Defence Evasion | Pages 15–16 | `Set-MpPreference -DisableRealtimeMonitoring` |
-| `14-lsass-access.png` | Credential Access | Page 26 | `spoolsv.exe` / `iexploreplugin.exe` accessing `lsass.exe` |
-| `15-fileserver-logon.png` | Lateral Movement | Page 16 | `admin143`, `10.10.5.62`, `13:58:52` |
-| `16-fileserver-command-execution.png` | Lateral Movement | Pages 18–19 | `whoami` at `13:58:53` |
-| `17-python-zip.png` | Payload Staging | Pages 19–20 | `python.zip`, `testc.exe`, `python311.dll` |
-| `18-testc-dropped-files.png` | Secondary Payload | Pages 20–21, 23 | `ws2_32.exe`, `system_module.exe`, DLL load |
-| `19-secondary-c2-dns.png` | Secondary C2 | Page 22 | `agegamepay.com`, `10.10.5.245` |
-| `20-secondary-c2-network.png` | Secondary C2 | Page 23 | `8443`, `8083` |
-| `21-collection-compress-archive.png` | Collection | New screenshot needed | `Compress-Archive`, `Finance.csv`, `HR.csv`, `teams-skartech.zip` |
-| `22-rclone-exfiltration.png` | Exfiltration | Page 25 | rclone copy to `remote:starktech-backups` |
-| `23-dc01-logon.png` | DC01 Activity | Page 17 | `admin143`, `10.10.5.62`, `14:34:30` |
-| `24-dc01-impact-preparation.png` | Impact Prep | New screenshot needed | `crypto.psm1`, `script.ps1`, `dhsf82.bat`, Winlogon, `vssadmin`, `Recover-Files.txt` |
-
----
-
-# 22. Analyst Notes
+# 21. Analyst Notes
 
 Several findings were treated carefully rather than overstated.
 
@@ -1660,7 +1630,7 @@ This distinction matters because good investigations separate confirmed facts fr
 
 ---
 
-# 23. Final Summary
+# 22. Final Summary
 
 The investigation started with a suspicious `paste.sh` visit by user `t.leon` on `DESKTOP` at **13:27:40**. Browser history confirmed the URL visit, and the page contained a PowerShell command that downloaded and executed `iexploreplugin.exe`.
 
