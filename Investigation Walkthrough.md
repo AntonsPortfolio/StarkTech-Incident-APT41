@@ -1,9 +1,8 @@
-# 🔻 StarkTech Investigation Walkthrough  
-## 🔻 Splunk + Windows Artefact Investigation
+# 🔻 StarkTech Investigation Walkthrough 🔻 
 
- > **Purpose:** This walkthrough shows the investigation process, evidence pivots, and analyst reasoning i used to trace a multi-stage Windows domain compromise. The purpose is to showcase how i think 
- 
- > This is **not** the final incident report. A separate IR report will summarise the confirmed incident narrative, business impact, IOCs, MITRE ATT&CK mapping, and response recommendations.
+### **Purpose:**
+- This walkthrough shows the investigation process, evidence pivots, and reasoning i used to trace a multi-stage Windows domain compromise. The purpose is to showcase how i think.
+- This is **not** the final incident report. A separate IR report will summarise the confirmed incident narrative, business impact, IOCs, MITRE ATT&CK mapping, and response recommendations.
 
 ---
 
@@ -31,9 +30,8 @@
 - [18. Exfiltration](#18-exfiltration)
 - [19. DC01 Activity and Impact Preparation](#19-dc01-activity-and-impact-preparation)
 - [20. Investigation Timeline](#20-investigation-timeline)
-- [21. Screenshot Checklist](#21-screenshot-checklist)
-- [22. Analyst Notes](#22-analyst-notes)
-- [23. Final Summary](#23-final-summary)
+- [21. Analyst Notes](#21-analyst-notes)
+- [22. Final Summary](#22-final-summary)
 
 ---
 
