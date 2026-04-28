@@ -11,7 +11,7 @@
 - [What This Demonstrates](#what-this-demonstrates)
 - [Systems in Scope](#systems-in-scope)
 - [1. Initial Access](#1-initial-access)
-- [2. Browser Artefact Validation](#2-browser-artefact-validation)
+- [2. Browser Artifact Validation](#2-browser-artifact-validation)
 - [3. Execution](#3-execution)
 - [4. Telemetry Scoping and Event ID Profiling](#4-telemetry-scoping-and-event-id-profiling)
 - [5. Initial Command and Control](#5-initial-command-and-control)
@@ -41,7 +41,7 @@ This investigation demonstrates:
 
 - Alert-led triage from a suspicious URL
 - DNS, browser, process, file, registry, authentication, and network log correlation
-- Validation of SIEM findings using endpoint artefacts
+- Validation of SIEM findings using endpoint artifacts
 - Event ID profiling as a method for understanding triggered telemetry before choosing pivots
 - Attack timeline reconstruction across a workstation, file server, and domain controller
 - Recognition of persistence, defence evasion, credential access, lateral movement, collection, exfiltration, and impact preparation
@@ -126,7 +126,7 @@ DNS alone does not prove the user interacted with the page, so I moved to browse
 
 ---
 
-# 2. Browser Artefact Validation
+# 2. Browser Artifact Validation
 
 ## What I Was Trying to Determine
 
@@ -140,9 +140,9 @@ Browser history gives stronger user-level evidence than DNS alone. DNS can be tr
 
 I used browser history because it provides stronger user-context evidence than DNS alone. A DNS query can be created by background activity, prefetching, or embedded content, but a browser history entry helps confirm that the user profile interacted with the URL.
 
-Matching the browser artefact timestamp with the Splunk DNS timestamp increased confidence that `paste.sh` was the starting point of the compromise.
+Matching the browser artifact timestamp with the Splunk DNS timestamp increased confidence that `paste.sh` was the starting point of the compromise.
 
-## Artefact Reviewed
+## Artifact Reviewed
 
 ```text
 C:\Users\t.leon\AppData\Local\Microsoft\Edge\User Data\Default\History
@@ -166,7 +166,7 @@ The Microsoft Edge history database contained the suspicious `paste.sh` URL unde
 
 ## What This Meant
 
-The suspicious URL access was confirmed through both SIEM telemetry and endpoint artefacts.
+The suspicious URL access was confirmed through both SIEM telemetry and endpoint artifacts.
 
 ## Finding
 
@@ -200,7 +200,7 @@ The `paste.sh` content contained a command. Since attackers commonly use PowerSh
 
 Once the suspicious URL was confirmed, the next question was whether it only represented browsing activity or whether it led to code execution. Because the page contained a PowerShell command, I searched for PowerShell and process creation activity tied to the user and host.
 
-This pivot was important because it connected the initial access artefact to the first executable payload, `iexploreplugin.exe`. Without this step, the URL would only be suspicious browsing activity rather than confirmed execution.
+This pivot was important because it connected the initial access artifact to the first executable payload, `iexploreplugin.exe`. Without this step, the URL would only be suspicious browsing activity rather than confirmed execution.
 
 ## Evidence Observed
 
@@ -681,15 +681,15 @@ After identifying service persistence, I checked whether scheduled tasks or othe
 
 I wanted to confirm whether persistence was reinforced through scheduled tasks.
 
-## Why I Pivoted to Scheduled Tasks and Registry Artefacts
+## Why I Pivoted to Scheduled Tasks and Registry Artifacts
 
-Scheduled tasks are common persistence mechanisms. Event logs may not always show the full picture, so I also checked registry and task folder artefacts.
+Scheduled tasks are common persistence mechanisms. Event logs may not always show the full picture, so I also checked registry and task folder artifacts.
 
 ## Analyst Reasoning
 
-I checked scheduled tasks because persistence is not always visible through services alone. Event logs showed one Atera-related task, but I also reviewed registry and task folder artefacts because scheduled task evidence can exist outside the SIEM view.
+I checked scheduled tasks because persistence is not always visible through services alone. Event logs showed one Atera-related task, but I also reviewed registry and task folder artifacts because scheduled task evidence can exist outside the SIEM view.
 
-Finding `Monitoring Recovery` and `AteraAgentServiceWatchdog` through registry and task artefacts showed why endpoint artefact validation matters. The SIEM provided the lead, but the forensic artefacts gave a fuller picture.
+Finding `Monitoring Recovery` and `AteraAgentServiceWatchdog` through registry and task artifacts showed why endpoint artifact validation matters. The SIEM provided the lead, but the forensic artifacts gave a fuller picture.
 
 ## Evidence Observed
 
@@ -893,7 +893,7 @@ I investigated LSASS access because lateral movement occurred shortly after the 
 
 Sysmon Event ID 10 was the right pivot because it records process access activity. The sequence of `iexploreplugin.exe` accessing `spoolsv.exe`, followed by `spoolsv.exe` accessing `lsass.exe`, connected process injection to possible credential access.
 
-I kept the wording cautious because LSASS access supports credential dumping, but does not prove successful dumping unless hash output or tool artefacts are recovered.
+I kept the wording cautious because LSASS access supports credential dumping, but does not prove successful dumping unless hash output or tool artifacts are recovered.
 
 <details>
 <summary><strong>SPL Query</strong></summary>
@@ -933,7 +933,7 @@ The attacker likely used `spoolsv.exe` for credential access activity.
 
 **Medium to High**
 
-> **Analyst caution:** This supports credential access and possible hash dumping, but I would not claim credential dumping was fully confirmed unless additional artefacts show dumped hashes, credential output, or tool-specific behaviour.
+> **Analyst caution:** This supports credential access and possible hash dumping, but I would not claim credential dumping was fully confirmed unless additional artifacts show dumped hashes, credential output, or tool-specific behaviour.
 
 ## Next Pivot
 
@@ -1583,9 +1583,9 @@ ransom note indicator
 | After execution | DESKTOP | `iexploreplugin.exe` | Injection into `notepad.exe` and `spoolsv.exe` | Process injection / migration |
 | ~13:35 | DESKTOP | `notepad.exe` | `20250825133552_BloodHound.zip` created | AD enumeration output |
 | ~13:45 | DESKTOP | PowerShell / `msiexec` | Atera installer downloaded and installed | RMM persistence |
-| 2025-08-25 13:47:10 | DESKTOP | Scheduled task artefact | `Monitoring Recovery` created | Scheduled task persistence |
+| 2025-08-25 13:47:10 | DESKTOP | Scheduled task artifact | `Monitoring Recovery` created | Scheduled task persistence |
 | 2025-08-25 13:51:17 | DESKTOP | File creation | `scvhost.vbs` created | Script staged |
-| 2025-08-25 13:51:18 | DESKTOP | Scheduled task artefact | `AteraAgentServiceWatchdog` created | Atera watchdog persistence |
+| 2025-08-25 13:51:18 | DESKTOP | Scheduled task artifact | `AteraAgentServiceWatchdog` created | Atera watchdog persistence |
 | 2025-08-25 13:52:25 | DESKTOP | `cscript.exe` | `scvhost.vbs` creates `iexplorer.lnk` | Shortcut persistence |
 | 2025-08-25 13:53:40 | DESKTOP | PowerShell | Defender real-time monitoring disabled | Defence evasion |
 | 2025-08-25 13:55:22 | DESKTOP | `iexploreplugin.exe` | Accesses `spoolsv.exe` | Process migration support |
