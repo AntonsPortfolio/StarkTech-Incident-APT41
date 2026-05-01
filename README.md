@@ -4,6 +4,9 @@
 - This walkthrough shows the investigation process, evidence pivots, and reasoning i used to trace a multi-stage Windows domain compromise. The purpose is to showcase how i think.
 - This is **not** the final incident report. A separate IR report will summarise the confirmed incident narrative, business impact, IOCs, MITRE ATT&CK mapping, and response recommendations.
 
+
+--> [Incident Report](Incident%20Report.md) <--
+
 ---
 
 ## 🔻 Table of Contents
